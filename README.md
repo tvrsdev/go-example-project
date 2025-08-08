@@ -8,8 +8,6 @@ A small test project that provides two HTTP endpoints to calculate "packs" for a
 - **Integration Tests** – Written in Go
 - **E2E Tests** – Written in Python (pytest + requests)
 
----
-
 
 ## 🚀 Run the Project
 
@@ -63,7 +61,6 @@ Simulate **real user requests** over HTTP, validating API responses against expe
 pytest -q
 ```
 
----
 
 ## 🐳 Docker
 
@@ -73,7 +70,6 @@ docker build -t pack-service .
 docker run -p 8080:8080 pack-service
 ```
 
----
 
 ## 📂 Project Structure
 
@@ -91,7 +87,6 @@ docker run -p 8080:8080 pack-service
 └── Makefile
 ```
 
----
 
 ## ⚙️ Requirements
 
@@ -100,7 +95,6 @@ docker run -p 8080:8080 pack-service
 - pip packages: pytest, requests  
 - **Nix** (optional, to get all tools in one shell)
 
----
 
 ## ❄️ Nix Environment
 
@@ -119,5 +113,3 @@ go test ./tests/... -v
 pytest -q
 
 ```
-
----
