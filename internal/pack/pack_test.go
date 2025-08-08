@@ -176,3 +176,31 @@ func TestInCorrect(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkCorrect(b *testing.B) {
+	tests := []int{
+		1, 250, 500, 750, 1000, 12001, 4999, 5001, 9999, 10000, 12500, 15000, 2250, 3750,
+	}
+
+	for _, size := range tests {
+		b.Run(fmt.Sprintf("Size %d", size), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				Correct(size)
+			}
+		})
+	}
+}
+
+func BenchmarkInCorrect(b *testing.B) {
+	tests := []int{
+		1, 251, 501, 12001, 249, 1250, 1750, 3000, 4999, 5001, 9999, 10000,
+	}
+
+	for _, size := range tests {
+		b.Run(fmt.Sprintf("Size %d", size), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				InCorrect(size)
+			}
+		})
+	}
+}
