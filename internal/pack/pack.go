@@ -1,5 +1,7 @@
 package pack
 
+import "maps"
+
 var (
 	sizes = []int{5000, 2000, 1000, 500, 250}
 )
@@ -75,21 +77,9 @@ func InCorrect(x int) []map[int]int {
 	}
 	packs := Correct(x)
 	for _, combination := range all {
-		if !isEqual(combination, packs) {
+		if !maps.Equal(combination, packs) {
 			incorrect = append(incorrect, combination)
 		}
 	}
 	return incorrect
-}
-
-func isEqual(a, b map[int]int) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for k, v := range a {
-		if b[k] != v {
-			return false
-		}
-	}
-	return true
 }
