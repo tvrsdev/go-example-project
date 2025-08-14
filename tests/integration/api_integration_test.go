@@ -20,17 +20,12 @@ func setupRouter() *gin.Engine {
 
 func TestIntegration_CorrectEndpoint(t *testing.T) {
 	router := setupRouter()
-
-	// ساخت درخواست
 	req := httptest.NewRequest(http.MethodGet, "/correct?x=750", nil)
 	rec := httptest.NewRecorder()
 
-	// اجرای درخواست روی روتر
 	router.ServeHTTP(rec, req)
-
 	require.Equal(t, http.StatusOK, rec.Code, "status code mismatch")
 
-	// Parse JSON response
 	var resp struct {
 		Status bool `json:"status"`
 		Data   struct {
