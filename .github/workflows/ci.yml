@@ -50,4 +50,16 @@ jobs:
         go-version: '1.24'
     - run: go mod tidy
     - name: Run integration tests
-      run: go test -v ./tests/integration/...
+      run: make test-integration
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '1.24'
+    - run: go mod tidy
+    - name: Run e2e tests
+      run: make test-e2e
