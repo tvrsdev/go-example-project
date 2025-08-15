@@ -37,7 +37,7 @@ test:
 
 test-e2e:
 	@echo "Running e2e test"
-	go test -v ./tests/e2e/api_test.go
+	go test -v ./tests/e2e/...
 
 test-integration:
 	@echo "Running integration test"
