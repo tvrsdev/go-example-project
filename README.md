@@ -15,8 +15,12 @@ A small test project that provides two HTTP endpoints to calculate "packs" for a
 CONFIG_PATH=./config/config.toml make run
 ```
 
-The server will start on the port defined in `config.toml`.
+Demo Swagger
+```bash
+http://localhost:8080/swagger/index.html
+```
 
+The server will start on the port defined in `config.toml`.
 ```bash
 curl "http://localhost:8080/correct?x=12001"
 
@@ -36,20 +40,30 @@ Test the core pack calculation logic **in isolation**, without HTTP or other dep
 
 **Run:**  
 ```bash
-go test ./internal/... -v
+make test
 ```
 
 ### 2️⃣ Integration Tests (Go)  
 Test the HTTP API by sending requests directly to the server (requires the API to be running).
 
 **Files:**  
-- tests/api_integration_test.go
+- tests/integration/api_integration_test.go
 
 **Run:**  
 ```bash
-go test ./tests/... -v
+make test-integration
 ```
 
+### 3️⃣ End-to-End (E2E)
+Simulate **real user requests** over HTTP, validating API responses against expected outputs.
+
+**Files:**  
+- tests/e2e/e2e_test.go
+
+**Run:**  
+```bash
+make test-e2e
+```
 
 ## 🐳 Docker
 
