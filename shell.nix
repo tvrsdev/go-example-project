@@ -2,17 +2,18 @@
 
 pkgs.mkShell {
   buildInputs = [
-    pkgs.go
-    pkgs.python3
-    pkgs.python3Packages.pytest
-    pkgs.python3Packages.requests
+    pkgs.go_1_24
+    pkgs.go-swag
   ];
 
   shellHook = ''
-    echo "✅ Go + Python test environment ready!"
+    go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    echo "✅ Go + go-swag + golangci-lint environment ready!"
     echo "Go version: $(go version)"
-    echo "Python version: $(python3 --version)"
+    echo "Go swag version: $(swag --version)"
+    echo "Golangci-lint version: $(golangci-lint  --version)
     echo "Use: make run  # to start your Go project"
-    echo "Use: pytest -q # to run E2E tests"
+    echo "Use: make help  # to show all command"
+    
   '';
 }

@@ -6,7 +6,7 @@ A small test project that provides two HTTP endpoints to calculate "packs" for a
 - **`/incorrect`** – Naive pack calculation in Go
 - **Unit Tests** – Written in Go
 - **Integration Tests** – Written in Go
-- **E2E Tests** – Written in Python (pytest + requests)
+- **E2E Tests** – Written in Go
 
 
 ## 🚀 Run the Project
@@ -50,17 +50,6 @@ Test the HTTP API by sending requests directly to the server (requires the API t
 go test ./tests/... -v
 ```
 
-### 3️⃣ End-to-End (E2E) Tests (Python)  
-Simulate **real user requests** over HTTP, validating API responses against expected outputs.
-
-**Files:**  
-- tests/test_e2e.py 
-
-**Run:**  
-```bash
-pytest -q
-```
-
 
 ## 🐳 Docker
 
@@ -78,10 +67,11 @@ docker run -p 8080:8080 pack-service
 ├── internal/pack                   # Go business logic (unit tests here)
 ├── api                             # HTTP API handlers
 ├── tests
-│   ├── api_integration_test.go     # Go integration tests
-│   └── test_e2e.py                 # Python E2E tests
+│   ├── integration                 # directory for go integration tests
+│   └── e2e                         # directory for E2E tests
 ├── config                          # Configuration files
-├── shell.nix                       # Nix shell with Go, Python, pytest, requests
+├── shell.nix                       # Nix shell with Go, go-swag, golangci
+├── .golangci.yml                   # Golang CI config
 ├── Dockerfile
 ├── go.mod / go.sum
 └── Makefile
@@ -91,25 +81,23 @@ docker run -p 8080:8080 pack-service
 ## ⚙️ Requirements
 
 - Go ≥ 1.24  
-- Python ≥ 3.9 (for E2E tests)  
-- pip packages: pytest, requests  
 - **Nix** (optional, to get all tools in one shell)
 
 
 ## ❄️ Nix Environment
 
-This project includes a shell.nix file that sets up **Go, Python, pytest, and requests** in a reproducible development environment.
+This project includes a shell.nix file that sets up **Go, go-swag, golangci ** in a reproducible development environment.
 
 ```bash
 nix-shell
 # Inside Nix shell, you can run:
 # Run unit tests
-go test ./internal/... -v
+make test
 
 # Run integration tests
-go test ./tests/... -v
+make test-integration
 
 # Run E2E tests
-pytest -q
+make test-e2e
 
 ```

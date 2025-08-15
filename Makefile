@@ -39,10 +39,6 @@ test-e2e:
 	@echo "Running e2e test"
 	go test -v ./tests/e2e/api_test.go
 
-test-e2e-py:
-	@echo "Running python e2e test"
-	pytest -q
-
 test-integration:
 	@echo "Running integration test"
 	go test -v ./tests/integration/...
@@ -54,7 +50,6 @@ help:
 	@echo "  debug   			- Run the application with
 	@echo "  test    			- Run tests with race detector and generate coverage report"
 	@echo "  test-e2e   		- Run end-to-end Go tests"
-	@echo "  test-e2e-py    	- Run end-to-end Python tests"
 	@echo "  test-integration 	- Run integration tests"
 	@echo "  lint         		- Run golangci-lint locally"
 	@echo "  lint-fix     		- Run golangci-lint and automatically fix issues"
