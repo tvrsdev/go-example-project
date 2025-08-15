@@ -16,6 +16,10 @@ debug:
 	@echo "Running the application with -race"
 	go run -race $(SRC)
 
+swag:
+	@echo "Generating swagger docs..."
+	swag init -g ./cmd/main.go -o ./docs
+
 lint:
 	@echo "Running golangci-lint locally..."
 	golangci-lint run --timeout=5m
@@ -47,7 +51,8 @@ help:
 	@echo "Makefile targets:"
 	@echo "  build   			- Build the Go project"
 	@echo "  run     			- Build and run the project"
-	@echo "  debug   			- Run the application with
+	@echo "  debug   			- Run the application with debug mode"
+	@echo "  swag   			- Generate Swagger Template"
 	@echo "  test    			- Run tests with race detector and generate coverage report"
 	@echo "  test-e2e   		- Run end-to-end Go tests"
 	@echo "  test-integration 	- Run integration tests"

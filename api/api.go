@@ -35,33 +35,52 @@ func valid(c *gin.Context) int {
 	return x
 
 }
+
+// @Summary Get Correct
+// @Description Give correct
+// @Tags pack
+// @Accept  json
+// @Produce  json
+// @Param x query int true "X is number"
+// @Router /correct [get]
+func correct(c *gin.Context) {
+	x := valid(c)
+	if x == 0 {
+		return // Early return if validation fails
+	}
+	packs := pack.Correct(x)
+	c.JSON(http.StatusOK, gin.H{
+		"status": true,
+		"data": gin.H{
+			"ordered": x,
+			"packs":   packs,
+		},
+	})
+}
+
+// @Summary Get Incorrect
+// @Description Give incorrect
+// @Tags pack
+// @Accept  json
+// @Produce  json
+// @Param x query int true "X is number"
+// @Router /incorrect [get]
+func incorrect(c *gin.Context) {
+	x := valid(c)
+	if x == 0 {
+		return // Early return if validation fails
+	}
+	packs := pack.InCorrect(x)
+	c.JSON(http.StatusOK, gin.H{
+		"status": true,
+		"data": gin.H{
+			"ordered": x,
+			"packs":   packs,
+		},
+	})
+}
+
 func InitApi(r *gin.Engine) {
-	r.GET("/correct", func(c *gin.Context) {
-		x := valid(c)
-		if x == 0 {
-			return // Early return if validation fails
-		}
-		packs := pack.Correct(x)
-		c.JSON(http.StatusOK, gin.H{
-			"status": true,
-			"data": gin.H{
-				"ordered": x,
-				"packs":   packs,
-			},
-		})
-	})
-	r.GET("/incorrect", func(c *gin.Context) {
-		x := valid(c)
-		if x == 0 {
-			return // Early return if validation fails
-		}
-		packs := pack.InCorrect(x)
-		c.JSON(http.StatusOK, gin.H{
-			"status": true,
-			"data": gin.H{
-				"ordered": x,
-				"packs":   packs,
-			},
-		})
-	})
+	r.GET("/correct", correct)
+	r.GET("/incorrect", incorrect)
 }
