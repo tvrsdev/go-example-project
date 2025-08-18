@@ -65,6 +65,33 @@ const docTemplate = `{
                 ],
                 "responses": {}
             }
+        },
+        "/set-sizes": {
+            "post": {
+                "description": "Set sizes for packs",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "pack"
+                ],
+                "summary": "Set sizes",
+                "parameters": [
+                    {
+                        "description": "X is number",
+                        "name": "sizes",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
         }
     }
 }`

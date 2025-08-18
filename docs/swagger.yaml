@@ -41,6 +41,24 @@ paths:
       summary: Get Incorrect
       tags:
       - pack
+  /set-sizes:
+    post:
+      consumes:
+      - application/json
+      description: Set sizes for packs
+      parameters:
+      - description: X is number
+        in: body
+        name: sizes
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Set sizes
+      tags:
+      - pack
 schemes:
 - http
 swagger: "2.0"

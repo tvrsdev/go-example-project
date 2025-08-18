@@ -12,6 +12,9 @@ func TestCorrect(t *testing.T) {
 		want    map[int]int
 	}{
 		{1, map[int]int{250: 1}},
+		{23, map[int]int{250: 1}},
+		{31, map[int]int{250: 1}},
+		{53, map[int]int{250: 1}},
 		{250, map[int]int{250: 1}},
 		{500, map[int]int{500: 1}},
 		{750, map[int]int{500: 1, 250: 1}},
@@ -21,6 +24,7 @@ func TestCorrect(t *testing.T) {
 		{5001, map[int]int{5000: 1, 250: 1}},
 		{9999, map[int]int{5000: 1, 2000: 2, 1000: 1}},
 		{10000, map[int]int{5000: 2}},
+		{500000, map[int]int{5000: 100}},
 		{12500, map[int]int{5000: 2, 2000: 1, 500: 1}},
 		{15000, map[int]int{5000: 3}},
 		{2250, map[int]int{2000: 1, 250: 1}},

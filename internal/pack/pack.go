@@ -1,10 +1,18 @@
 package pack
 
-import "maps"
+import (
+	"maps"
+	"sort"
+)
 
 var (
 	sizes = []int{5000, 2000, 1000, 500, 250}
 )
+
+func SetSizes(newSizes []int) []int {
+	sizes = newSizes
+	return sizes
+}
 
 // Correct returns a map[size]count covering x using available sizes.
 // It greedily fills from largest to smallest, adds one smallest pack if a remainder exists,
@@ -14,6 +22,7 @@ var (
 //
 //	Correct(1) // -> map[int]int{250:1}
 func Correct(x int) map[int]int {
+	sort.Sort(sort.Reverse(sort.IntSlice(sizes)))
 	packs := make(map[int]int)
 	for _, size := range sizes {
 		if x <= 0 {
@@ -65,6 +74,7 @@ func optimize(packs map[int]int) {
 // The function uses a greedy approach to find the correct combination and then filters out that combination from
 // the list of all combinations to return only the incorrect ones.package pack
 func InCorrect(x int) []map[int]int {
+	sort.Sort(sort.Reverse(sort.IntSlice(sizes)))
 	incorrect := []map[int]int{}
 	all := []map[int]int{}
 	for _, size := range sizes {

@@ -1,12 +1,17 @@
 package api
 
 import (
+	"embed"
+	"fmt"
 	"job-test/internal/pack"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
+
+//go:embed static/*
+var StaticFiles embed.FS
 
 func valid(c *gin.Context) int {
 	xStr := c.Query("x")
@@ -34,6 +39,32 @@ func valid(c *gin.Context) int {
 	}
 	return x
 
+}
+
+type SetSizesReq struct {
+	Sizes []int
+}
+
+// @Summary Set sizes
+// @Description Set sizes for packs
+// @Tags pack
+// @Accept  json
+// @Produce  json
+// @Param sizes body int true "X is number"
+// @Router /set-sizes [post]
+func setSizes(c *gin.Context) {
+	var reqBody SetSizesReq
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": false, "message": "Invalid sizes format"})
+		return
+	}
+	newSizes := pack.SetSizes(reqBody.Sizes)
+	c.JSON(http.StatusOK, gin.H{
+		"status": true,
+		"data": map[string][]int{
+			"sizes": newSizes,
+		},
+	})
 }
 
 // @Summary Get Correct
@@ -81,6 +112,16 @@ func incorrect(c *gin.Context) {
 }
 
 func InitApi(r *gin.Engine) {
+	r.GET("/", func(c *gin.Context) {
+		data, err := StaticFiles.ReadFile("static/index.html")
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		c.Data(http.StatusOK, "text/html; charset=utf-8", data)
+	})
+	r.StaticFS("/static", http.FS(StaticFiles))
+
+	r.POST("/set-sizes", setSizes)
 	r.GET("/correct", correct)
 	r.GET("/incorrect", incorrect)
 }
